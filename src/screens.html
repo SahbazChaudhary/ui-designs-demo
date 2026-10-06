@@ -1,0 +1,207 @@
+<!-- ===================== ITEM LIST ===================== -->
+<section data-screen="items" aria-labelledby="h-items">
+  <header class="page-head">
+    <div>
+      <nav class="crumbs" aria-label="Breadcrumb"><span>Masters</span><span>Item</span></nav>
+      <h1 id="h-items">Items</h1>
+    </div>
+    <div class="head-actions">
+      <a class="btn btn-primary" href="#item-form" data-go="item-form"><svg class="i" viewBox="0 0 24 24"><use href="#i-plus"/></svg><span>Add Item</span></a>
+    </div>
+  </header>
+
+  <div class="panel">
+    <div class="toolbar">
+      <label class="search" for="itemSearch">
+        <svg class="i" viewBox="0 0 24 24"><use href="#i-search"/></svg>
+        <input id="itemSearch" type="search" placeholder="Search by name, code or ID" autocomplete="off">
+      </label>
+      <span class="count" id="itemCount">12 items</span>
+    </div>
+    <div class="table-wrap">
+      <table class="data cards-sm">
+        <thead><tr><th class="num">ID</th><th>Code</th><th>Name</th><th>UOM</th><th>Unit</th><th class="actions">Action</th></tr></thead>
+        <tbody id="itemRows"></tbody>
+      </table>
+    </div>
+    <div class="pager">
+      <span>Showing 1–12 of 12</span>
+      <div class="pager-btns">
+        <button class="btn btn-ghost btn-sm" type="button" disabled>Previous</button>
+        <button class="btn btn-ghost btn-sm current" type="button" aria-current="page">1</button>
+        <button class="btn btn-ghost btn-sm" type="button" disabled>Next</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ITEM FORM ===================== -->
+<section data-screen="item-form" aria-labelledby="h-item-form" hidden>
+  <header class="page-head">
+    <div>
+      <nav class="crumbs" aria-label="Breadcrumb"><span>Masters</span><a href="#items" data-go="items">Item</a><span>Edit</span></nav>
+      <h1 id="h-item-form">Edit Item</h1>
+    </div>
+    <div class="head-actions">
+      <a class="btn btn-ghost" href="#items" data-go="items"><svg class="i" viewBox="0 0 24 24"><use href="#i-back"/></svg><span>Back to list</span></a>
+    </div>
+  </header>
+
+  <form id="itemForm" class="panel form" novalidate>
+    <div class="form-section">
+      <div class="section-head"><h2>Item details</h2><p>Name and code appear on inward entries, sale orders and invoices.</p></div>
+      <div class="grid">
+        <div class="field">
+          <label for="f-name">Item Name <b class="req" aria-hidden="true">*</b></label>
+          <input id="f-name" type="text" value="Garlic Ooty (G1)" placeholder="Enter Item Name" required>
+          <span class="err">Item Name is required.</span>
+        </div>
+        <div class="field">
+          <label for="f-code">Item Code <b class="req" aria-hidden="true">*</b></label>
+          <input id="f-code" type="text" value="GRL-OTY" placeholder="Enter Item Code" required>
+          <span class="err">Item Code is required.</span>
+        </div>
+        <div class="field">
+          <label for="f-class">Item Classification</label>
+          <select id="f-class"><option>Garlic</option><option>Dry Chilli</option><option>Packing Material</option></select>
+        </div>
+        <div class="field">
+          <label for="f-type">Type</label>
+          <select id="f-type"><option>Commission</option><option>Trading</option><option>Consumable</option></select>
+        </div>
+        <div class="field span-all">
+          <label for="f-desc">Item Description</label>
+          <textarea id="f-desc" rows="3" placeholder="Enter Item Description">Ooty garlic, grade G1, 40–45 mm bulbs.</textarea>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <div class="section-head"><h2>Units and rate</h2><p>UOM is how stock arrives. Unit (for Rate) is what the rate is quoted per.</p></div>
+      <div class="grid">
+        <div class="field">
+          <label for="f-uom">UOM <b class="req" aria-hidden="true">*</b></label>
+          <select id="f-uom" required><option>Bag</option><option>Box</option><option>Kg</option><option>Nos</option></select>
+        </div>
+        <div class="field">
+          <label for="f-unit">Unit (for Rate)</label>
+          <input id="f-unit" type="text" value="Kg" placeholder="Enter UOM (for Rate)">
+        </div>
+        <div class="field">
+          <label for="f-rate">Rate</label>
+          <div class="affix"><span>₹</span><input id="f-rate" type="number" step="0.01" value="118.50" placeholder="Enter Rate"><span>/ Kg</span></div>
+        </div>
+        <div class="field">
+          <label for="f-min">Min Required Qty</label>
+          <input id="f-min" type="number" value="500" placeholder="Enter Min Required Qty">
+          <span class="hint">Low-stock alert below this quantity.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-actions">
+      <a class="btn btn-ghost" href="#items" data-go="items">Cancel</a>
+      <button class="btn btn-primary" type="submit">Save Item</button>
+    </div>
+  </form>
+</section>
+
+<!-- ===================== SALE ORDER ===================== -->
+<section data-screen="sale-order" aria-labelledby="h-so" hidden>
+  <header class="page-head">
+    <div>
+      <nav class="crumbs" aria-label="Breadcrumb"><span>Sales</span><span>Sale Order</span><span>New</span></nav>
+      <h1 id="h-so">New Sale Order <span class="status">Draft</span></h1>
+    </div>
+    <div class="head-actions">
+      <span class="meta-chip"><svg class="i" viewBox="0 0 24 24"><use href="#i-calendar"/></svg>06 Oct 2026</span>
+    </div>
+  </header>
+
+  <form id="soForm" class="so-layout" novalidate>
+    <div class="so-main">
+      <div class="panel form">
+        <div class="form-section">
+          <div class="section-head"><h2>Buyer</h2></div>
+          <div class="grid">
+            <div class="field span-2">
+              <label for="so-buyer">Buyer Name <b class="req" aria-hidden="true">*</b></label>
+              <div class="affix"><span><svg class="i" viewBox="0 0 24 24"><use href="#i-search"/></svg></span><input id="so-buyer" type="text" value="Balaji Masala Udyog, Indore" required></div>
+              <span class="err">Choose a buyer.</span>
+            </div>
+            <div class="field">
+              <label for="so-contact">Contact No</label>
+              <input id="so-contact" type="tel" value="98260 41733" placeholder="Contact No">
+            </div>
+            <div class="field">
+              <label for="so-pay">Payment Mode <b class="req" aria-hidden="true">*</b></label>
+              <select id="so-pay" required><option>Credit</option><option>Cash</option></select>
+            </div>
+            <div class="field">
+              <label for="soAdvance">Advance Amount</label>
+              <div class="affix"><span>₹</span><input id="soAdvance" type="number" step="1" value="50000" placeholder="Cash Advance Amount"></div>
+            </div>
+            <div class="field">
+              <label for="so-pending">Pending Since</label>
+              <input id="so-pending" type="text" value="12 days (₹ 84,600)" readonly>
+              <span class="hint">Oldest unpaid bill for this buyer.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <div class="section-head"><h2>Delivery and transport</h2></div>
+          <div class="grid">
+            <div class="field">
+              <label for="so-date">Expected Delivery Date <b class="req" aria-hidden="true">*</b></label>
+              <input id="so-date" type="date" value="2026-10-08" required>
+            </div>
+            <div class="field span-2">
+              <label for="so-trans">Transporter Name</label>
+              <div class="affix"><span><svg class="i" viewBox="0 0 24 24"><use href="#i-search"/></svg></span><input id="so-trans" type="text" value="Shree Ganesh Roadlines" placeholder="Search by transporter, company, area or pincode"></div>
+            </div>
+            <div class="field">
+              <label for="so-tmob">Mobile No</label>
+              <input id="so-tmob" type="tel" value="94250 11872" placeholder="Mobile No">
+            </div>
+            <div class="field">
+              <label for="so-area">Area / Pincode</label>
+              <input id="so-area" type="text" value="Siyaganj, Indore · 452007" placeholder="Enter pincode to search">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="toolbar">
+          <div class="toolbar-title"><h2>Supplier lots</h2><span class="count" id="soLineCount">3 lots</span></div>
+          <button class="btn btn-ghost btn-sm" type="button" data-add-lot><svg class="i" viewBox="0 0 24 24"><use href="#i-plus"/></svg><span>Add Supplier Lot</span></button>
+        </div>
+        <p class="warn" id="soWarn" hidden>Req. Qty is more than Avl. Qty on a highlighted lot. Lower it to save.</p>
+        <div class="table-wrap">
+          <table class="data cards-md lots">
+            <thead><tr><th>Supplier</th><th class="num">Arr. Qty</th><th>Inward Date</th><th>Item</th><th>Lot</th><th>Tag</th><th class="num">Avl. Qty</th><th class="num">Req. Qty</th><th class="num">Rate (₹/Kg)</th><th class="num">Amount (₹)</th><th class="actions"><span class="sr">Action</span></th></tr></thead>
+            <tbody id="soRows"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <aside class="so-side">
+      <div class="panel summary">
+        <h2>Order summary</h2>
+        <dl>
+          <div><dt>Total quantity</dt><dd id="soTotalQty">2,500 Kg</dd></div>
+          <div><dt>Sub total</dt><dd id="soSubtotal">₹ 0.00</dd></div>
+          <div><dt>Advance received</dt><dd id="soAdvanceOut">₹ 0.00</dd></div>
+          <div class="grand"><dt>Balance due</dt><dd id="soBalance">₹ 0.00</dd></div>
+        </dl>
+        <p class="hint">Sample figures. Final amounts are calculated exactly as in the current system.</p>
+        <div class="summary-actions">
+          <button class="btn btn-primary btn-block" type="submit">Save Sale Order</button>
+          <a class="btn btn-ghost btn-block" href="#items" data-go="items">Discard</a>
+        </div>
+      </div>
+    </aside>
+  </form>
+</section>

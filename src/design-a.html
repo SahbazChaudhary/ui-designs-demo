@@ -1,0 +1,125 @@
+<title>C&amp;G Classic Sidebar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@500;600&family=Nunito+Sans:opsz,wght@6..12,400;6..12,500;6..12,600;6..12,700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Option A · Classic sidebar: white grouped side menu, pink-tinted grey ground, content in bordered panels. */
+:root {
+  --bg: #F6F4F6; --surface: #FFFFFF; --surface-2: #F4F1F4; --topbar-bg: rgba(246,244,246,.86);
+  --fg: #1F1A22; --label: #3D3641; --muted: #6F6874; --line: #E7E2E8; --line-strong: #CFC7D1;
+  --accent: #D93380; --accent-hover: #C22470; --accent-text: #C22470; --accent-ink: #FFFFFF; --accent-soft: rgba(227,58,135,.11);
+  --danger: #C62F2F; --danger-soft: #FCEBEB; --warn-soft: #FFF2D4; --warn-ink: #8A5A00; --focus: #E33A87;
+  --field-bg: #FFFFFF; --row-hover: #FBF8FB; --th-bg: #FAF8FA; --toast-bg: #1F1A22; --toast-fg: #FFFFFF;
+  --shadow: 0 1px 2px rgba(31,26,34,.04); --shadow-color: rgba(31,26,34,.14); --scrim: rgba(20,14,22,.42);
+  --font-display: "Josefin Sans", "Century Gothic", "Trebuchet MS", sans-serif;
+  --font-body: "Nunito Sans", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+  --radius: 12px; --radius-sm: 8px; --gutter: 28px; --sticky-top: 84px; --h1-track: 0;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #141116; --surface: #1C181F; --surface-2: #252028; --topbar-bg: rgba(20,17,22,.86);
+  --fg: #F1ECF2; --label: #D6CED9; --muted: #A39AA8; --line: #2F2934; --line-strong: #463E4C;
+  --accent: #E0408A; --accent-hover: #EC5A9C; --accent-text: #F27AB2; --accent-ink: #FFFFFF; --accent-soft: rgba(236,76,149,.17);
+  --danger: #F07A7A; --danger-soft: rgba(240,112,112,.14); --warn-soft: rgba(255,190,60,.15); --warn-ink: #F3C35A; --focus: #F27AB2;
+  --field-bg: #17141A; --row-hover: #221D25; --th-bg: #201B23; --toast-bg: #F1ECF2; --toast-fg: #1C181F;
+  --shadow: none; --shadow-color: rgba(0,0,0,.55); --scrim: rgba(0,0,0,.6); color-scheme: dark;
+} }
+:root[data-theme="dark"] {
+  --bg: #141116; --surface: #1C181F; --surface-2: #252028; --topbar-bg: rgba(20,17,22,.86);
+  --fg: #F1ECF2; --label: #D6CED9; --muted: #A39AA8; --line: #2F2934; --line-strong: #463E4C;
+  --accent: #E0408A; --accent-hover: #EC5A9C; --accent-text: #F27AB2; --accent-ink: #FFFFFF; --accent-soft: rgba(236,76,149,.17);
+  --danger: #F07A7A; --danger-soft: rgba(240,112,112,.14); --warn-soft: rgba(255,190,60,.15); --warn-ink: #F3C35A; --focus: #F27AB2;
+  --field-bg: #17141A; --row-hover: #221D25; --th-bg: #201B23; --toast-bg: #F1ECF2; --toast-fg: #1C181F;
+  --shadow: none; --shadow-color: rgba(0,0,0,.55); --scrim: rgba(0,0,0,.6); color-scheme: dark;
+}
+{{BASE_CSS}}
+
+/* ---------- Option A chrome ---------- */
+.app { display: grid; grid-template-columns: 264px minmax(0, 1fr); min-height: 100vh; }
+.sidebar { position: sticky; top: 0; height: 100vh; overflow-y: auto; background: var(--surface); border-right: 1px solid var(--line); display: flex; flex-direction: column; z-index: 40; }
+.brand { padding: 22px 24px 16px; display: flex; align-items: center; justify-content: space-between; }
+.brand img { width: 172px; height: auto; display: block; }
+.brand .icon-btn { display: none; }
+.side-nav { padding: 8px 12px 24px; display: grid; gap: 2px; }
+.nav-top, .navgrp > summary { display: flex; align-items: center; gap: 12px; padding: 9px 12px; border-radius: 8px; color: var(--label); font-weight: 600; font-size: 14px; text-decoration: none; cursor: pointer; list-style: none; }
+.navgrp > summary::-webkit-details-marker { display: none; }
+.nav-top:hover, .navgrp > summary:hover { background: var(--surface-2); color: var(--fg); }
+.navgrp > summary .chev { margin-left: auto; width: 16px; height: 16px; color: var(--muted); transition: transform .2s; }
+.navgrp[open] > summary .chev { transform: rotate(180deg); }
+.navgrp.has-active > summary { color: var(--fg); }
+.navgrp.has-active > summary .i:first-child { color: var(--accent-text); }
+.sub { display: grid; gap: 1px; padding: 2px 0 8px 33px; position: relative; }
+.sub::before { content: ""; position: absolute; left: 21px; top: 2px; bottom: 10px; width: 1px; background: var(--line); }
+.nav-link { display: block; padding: 6px 12px; border-radius: 7px; color: var(--muted); text-decoration: none; font-size: 13.5px; }
+.nav-link:hover { color: var(--fg); background: var(--surface-2); }
+.nav-link.active { color: var(--accent-text); background: var(--accent-soft); font-weight: 700; }
+.side-foot { margin-top: auto; padding: 14px 24px 20px; border-top: 1px solid var(--line); font-size: 12px; color: var(--muted); display: grid; gap: 2px; }
+.side-foot b { color: var(--label); font-weight: 600; }
+
+.main { min-width: 0; }
+.topbar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; display: flex; align-items: center; gap: 12px; height: 64px; padding-inline: var(--gutter); background: var(--topbar-bg); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+.topbar .search { flex: 0 1 380px; background: var(--surface); }
+.top-right { margin-left: auto; display: flex; align-items: center; gap: 6px; }
+.avatar { width: 34px; height: 34px; border-radius: 50%; background: var(--accent-soft); color: var(--accent-text); display: grid; place-items: center; font-weight: 700; font-size: 12px; margin-left: 4px; }
+.menu-btn { display: none; }
+.scrim { display: none; }
+
+/* A: table + panel tone */
+.data th { background: var(--th-bg); }
+.page-head h1 { font-size: clamp(1.45rem, 1.2rem + 1vw, 1.9rem); }
+
+@media (max-width: 1023px) {
+  :root { --gutter: 16px; }
+  .app { grid-template-columns: minmax(0, 1fr); }
+  .sidebar { position: fixed; inset: 0 auto 0 0; width: min(300px, 86vw); transform: translateX(-102%); transition: transform .25s ease; box-shadow: 8px 0 30px var(--shadow-color); padding-top: env(safe-area-inset-top, 0px); }
+  body.nav-open .sidebar { transform: none; }
+  body.nav-open .scrim { display: block; position: fixed; inset: 0; background: var(--scrim); z-index: 30; }
+  .brand .icon-btn { display: inline-grid; }
+  .menu-btn { display: inline-grid; }
+}
+@media (max-width: 640px) {
+  .topbar .search { display: none; }
+  .topbar .bell { display: none; }
+}
+</style>
+
+{{SPRITE}}
+
+<div class="app">
+  <aside class="sidebar" aria-label="Main menu">
+    <div class="brand">
+      <img src="{{LOGO}}" alt="Chillies &amp; Garlic commission company" width="172" height="47">
+      <button class="icon-btn" type="button" data-drawer-toggle aria-label="Close menu"><svg class="i" viewBox="0 0 24 24"><use href="#i-close"/></svg></button>
+    </div>
+    <nav class="side-nav">
+{{NAV}}
+    </nav>
+    <div class="side-foot"><b>FY 2026–27</b><span>PROGARLIC · Head Office</span></div>
+  </aside>
+  <div class="scrim" data-scrim></div>
+
+  <div class="main">
+    <header class="topbar">
+      <button class="icon-btn menu-btn" type="button" data-drawer-toggle aria-label="Open menu"><svg class="i" viewBox="0 0 24 24"><use href="#i-menu"/></svg></button>
+      <label class="search" for="globalSearch">
+        <svg class="i" viewBox="0 0 24 24"><use href="#i-search"/></svg>
+        <input id="globalSearch" type="search" placeholder="Search buyers, suppliers, lots…" autocomplete="off">
+      </label>
+      <div class="top-right">
+        <span class="option-badge"><b>A</b><span>Option A · Classic Sidebar</span></span>
+        <button class="icon-btn" type="button" data-theme-toggle aria-label="Switch light or dark mode" title="Light / dark"><svg class="i" viewBox="0 0 24 24"><use href="#i-moon"/></svg></button>
+        <button class="icon-btn bell" type="button" data-demo-off aria-label="Notifications" title="Notifications"><span class="sr">Notifications</span><svg class="i" viewBox="0 0 24 24"><use href="#i-bell"/></svg></button>
+        <span class="avatar" title="Admin">AD</span>
+      </div>
+    </header>
+
+    <main class="content">
+{{SCREENS}}
+    </main>
+  </div>
+</div>
+
+<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+<script>
+{{COMMON_JS}}
+</script>
